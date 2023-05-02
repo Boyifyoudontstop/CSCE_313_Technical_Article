@@ -11,7 +11,7 @@
 
 <div id="content">
 <h1>Linux on RISCV in the Context of Hardware Security</h1>
-
+<h1 style="font-size: 19px;">by Brandon Torres and Jack Letsinger</h1>
 	<ul>
 			<li><a href="#Background">1. Background</a>
 			<ul>
@@ -29,90 +29,268 @@
 			</li>
 			<li><a href="#Section3">3. Examples of Linux on RISCV</a>
 			<ul>
-				<li><a href="#Section3.1">3.1 Early Prototypes </a></li>
-				<li><a href="#Section3.2">3.2 Working Implementations </a></li>
-				<li><a href="#Section3.3">3.3 The Future </a></li>
+				<li><a href="#Section3.2">3.1 Working Implementations </a></li>
+				<li><a href="#Section3.3">3.2 The Future </a></li>
 			</ul>
-      <!-- this here is if we feel then need to add more sections -->
-			<!-- </li> 
-			<li><a href="#Section4">4. This must be changed </a>
+			</li> 
+			<li><a href="#Section4">4. Security</a>
 			<ul>
-				<li><a href="#Section4.1">4.1 Someday</a></li>
-				<li><a href="#Section4.2">4.2 Over the </a></li>
-				<li><a href="#Section4.3">4.3 Rainbow</a></li>
+				<li><a href="#Section4.1">4.1 Examples in hardware</a></li>
+				<li><a href="#Section4.2">4.2 Examples in software </a></li>
+				<!-- <li><a href="#Section4.3">4.3 Rainbow</a></li> -->
 			</ul>
 			</li>
-			<li><a href="#Section5">5. Authentication mechanisms</a>
+      <!-- this here is if we feel then need to add more sections -->
+			<!-- <li><a href="#Section5">5. Authentication mechanisms</a>
 			<ul>
 				<li><a href="#Section5.1">5.1 EAP-SIM</a></li>
 				<li><a href="#Section5.2">5.2 EAP-AKA</a></li>
 			</ul>
 			</li> -->
-			<li><a href="#Summary">4. Summary</a></li>
-			<li><a href="#References">References</a></li>
-			<li><a href="#Acronyms">List of Acronyms</a></li>
+			<li><a href="#Summary">5. Summary</a></li>
+			<li><a href="#References">6. References</a></li>
+			<li><a href="#Acronyms">7. List of Acronyms</a></li>
 		</ul>
 
 <h2 id="Background" class="numbered">Background</h2>
 
-<p>This document defines formatting and style rules for HTML and CSS. It aims at
-improving collaboration, code quality, and enabling supporting infrastructure.
-It applies to raw, working files that use HTML and CSS, including GSS files.
-Tools are free to obfuscate, minify, and compile as long as the general code
-quality is maintained.</p>
+
 
   <h4 id="Section1.1"> 1.1 Why your Hardware Matters </h4>
 
-    <p>Indent by 2 spaces at a time.</p>
+    <p style="font-size: 16px; text-indent: 40px;">	In terms of computer and information security, hardware-base security is the preferred route over software-base security. It is tried and tested to provide stronger and more dependable security measures that have a resistance to malware and other malicious software attacks that would tamper with the system. Cryptography methods done at the hardware level, such as those done by hardware security modules and physically unclonable functions, are able to function with greater efficiency as the algorithms can be better optimized with the hardware performance. This higher performance is also physically protected rather than simply software protected from unauthorized access of private data and fills in the gaps of the defensive wall. An advantage of having a dedicated hardware security unit is the ability to physically separate encryption functions into a differing crypto algorithm processor as it becomes more difficult for outside tampering and interception of information to occur. Software security can and does play its role in its cryptography of the information, however a sole software based security would have its data running in the same location as the rest of the processes resulting in outside source having a greater effect compared to a separate physical entity.
+    </p>
+
+    <p style="font-size: 16px; text-indent: 40px;"> A key component of hardware security that Albert Jeng discusses is how more recent computing devices under 5G and IoT/AIoT have become unsupervised and physically exposed. Software security simply cannot combat attacks done to the physical components of these devices, thus hardware security and its implementation is more important than ever. Overall, hardware security enforces a separate secure storage and self managed memory space that works as a buffer for tampering and data breaches of private system information needed for encryption. Notably, these implementations require specific hardware components and design features that need to be able to communicate with the operating system. If the operating system is unable to take advantage of the features hardware security provides, then it is meaningless to provide those hardware upgrades. This lack of flexibility is admittedly a major downside to hardware security as many popular instruction set architectures within current day processors are unlikely to change their own “good enough” designs and mindset to fit the wants of experimenting consumers. This hardware limitation however may be a thing of the past as RISCV, with its open source format, can provide a resource that can eliminate some disadvantages of hardware security.
+    </p>
 
   <h4 id="Section1.2">1.2 Why your Operating System Matters</h4>
 
-    <p>Indent by 2 spaces at a time.</p>
+  <p style="font-size: 16px; text-indent: 40px;"> One important factor to consider when choosing an operating system is whether it is open source or closed source. Closed source operating systems, such as Windows OS, are proprietary and do not allow users to access or modify the source code. This lack of transparency can make it difficult for users to fully understand what the operating system is doing on their computer. For example, Windows OS constantly scans a user's computer for updates and potentially unwanted programs, which can raise privacy concerns for some users. Furthermore, this low accessibility puts users in a closed box that limits much of their problem solving potential and are forced to either switch platforms or succumb to sitting in the passenger seat of their own system.
+  </p>
+
+  <p style="font-size: 16px; text-indent: 40px;"> In contrast, open source operating systems, such as Linux, allow users to access and modify the source code. This transparency can provide users with greater control over their computing experience and increased privacy. Because the source code is freely available, users can review it to ensure that there are no hidden vulnerabilities or backdoors. Additionally, open source operating systems are often free to use and distribute, which can be especially beneficial for individuals and organizations with limited resources.
+  </p>
+
+  <p style="font-size: 16px; text-indent: 40px;"> When selecting an operating system, it is also important to consider the specific needs of the user. The decision should focus on how a system can give an advantageous hand rather than hinder the available options. For example, if a user primarily uses their computer for gaming, they may want to choose an operating system that is optimized for gaming performance and the ability to push the boundaries of a standard computer on their terms. On the other hand, if a user prioritizes security and privacy, they may want to choose an open source operating system with strong encryption and security features. Additionally, the open source feature would allow a deeper understanding of the inner workings of the system and the user could fully benefit from the complete design.
+  </p>
+
+  <p style="font-size: 16px; text-indent: 40px;"> Ultimately, the choice of operating system can have significant implications for a user's productivity, privacy, and security. It is important for users to carefully evaluate their options and choose an operating system that aligns with their needs and values.
+  </p>
 
   <h4 id="Section1.3">1.3 RISCV on Linux</h4>
 
-    <p>Indent by 2 spaces at a time.</p>
+  <p style="font-size: 16px; text-indent: 40px;">When combined with Linux, which is another open source operating system, RISC-V offers a powerful combination of flexibility and accessibility. Linux is a highly customizable and widely used operating system that provides a stable and secure platform for software development and deployment. When running on RISC-V processors, Linux offers increased performance and reduced power consumption, making it a great choice for a wide range of applications.
+  </p>
 
+  <p style="font-size: 16px; text-indent: 40px;"> Another significant advantage of using RISC-V with Linux is the added benefit of security. Because both RISC-V and Linux are open source, they are subject to constant scrutiny and improvement from a wide range of developers and security experts. This means that vulnerabilities can be identified and addressed quickly, and users can have greater confidence in the security of their systems. Additionally, RISC-V allows for the implementation of hardware-level security features, such as secure boot and encrypted memory, that can further enhance system security and overrides the previously mentioned limitations of hardware security. A user can have the freedom to physically upgrade their system and design software that can take full advantage of those upgrades. 
+  </p>
+
+  <p style="font-size: 16px; text-indent: 40px;"> In summary, the combination of RISC-V and Linux offers a powerful and flexible platform for hardware and software development. Both platforms are open source, which allows for greater customization and accessibility, and also provides the added benefit of security through constant community scrutiny and improvement. As more and more developers and companies adopt RISC-V and Linux, we can expect to see even greater innovation and advancements in the world of computer hardware and software.
+  </p>
+
+  <a href="https://riscv.org/about/risc-v-branding-guidelines/">
+  <figure style="font-size: 16px; text-align: center;">
+    <img src="images/RISCV.jpg" alt="Hardware Security Has a Hopeful Future with RISCV">
+    <figcaption>Hardware Security Has a Hopeful Future with RISCV</figcaption>
+  </figure>
+  </a>
+  
 <h2 id="Section2" class="numbered">What is RISCV</h2>
 
   <h4 id="Section2.1"> 2.1 Conception </h4>
 
-    <p>Indent by 2 spaces at a time.</p>
+  <p style="font-size: 16px; text-indent: 40px;">RISCV originated at the University of California at Berkeley as part of an instruction set for the Parallel Computing Laboratory. While funded by DARPA, Intel, and Microsoft, the goal of the research was parallel processing systems. This allowed the creation of the ISA to be considered basic research, and open source under a Berkeley Software Distribution license. While the designation allows the US government to retain the rights to use the ISA as well as anything else developed in the research, it does not restrict the technology, allowing anyone to take part in this open source project. 
+  </p>
+
+  <p style="font-size: 16px; text-indent: 40px;">From their conception, Linux and RISCV share a lot of similar principles. One of these is the concept of open source design. Unlike the Windows operating system or x86 instruction set architecture, the source code for Linux distributions and RISCV cores are generally open source. According to senior security program manager Scott Christiansen in an article from theverge.com, “47,000 developers generate nearly 30,000 bugs a month (at Microsoft)”[1]. These bugs can be found either through consumers reporting them or the developers themselves. Either way, the source code must then be addressed by a developer, who in turn is responsible for fixing it. With an open source platform, anyone can easily report a bug, and more people can attempt to provide solutions for it.
+  </p>
+
+  <p style="font-size: 16px; text-indent: 40px;">RISCV International is an organization founded in 2015 that serves as a community for people to collaborate and innovate the software and hardware around the RISCV instruction set architecture. In 2018, they announced a joint collaboration with the Linux Foundation, which has offered training, technical support, and legal expertise as a fellow open source project. In 2020, RISCV international became a legal entity when it was incorporated in Switzerland. This does not put the RISCV ISA under the ownership of RISCV international, but it does establish a legal basis for the organization. 
+  </p>
 
   <h4 id="Section2.2">2.2 Production</h4>
 
-    <p>Indent by 2 spaces at a time.</p>
+  <p style="font-size: 16px; text-indent: 40px;">There is a considerable amount of work being done on RISCV cores. From Opentitan to Rocket core, these projects are being worked on all simultaneously by many contributors. A fascinating feature about these cores is that they are all open source. Online github repositories and active developers will take any fork or raised issue into consideration. Here are 20 RISCV cores, categorized based on their main utility.
+  </p>
+
+  <p style="font-size: 16px; text-indent: 40px;">
+  
+    <h2>RISCV Cores by Utility:</h2>
+<h3>Speed:</h3>
+<ul style="font-size: 16px;">
+  <li>SiFive U54 Core</li>
+  <li>Andes Technology N25 Core</li>
+  <li>Open-Silicon S7 Core</li>
+  <li>Celerity Technologies RISC-V Core</li>
+</ul>
+<h3>Power Efficiency:</h3>
+<ul style="font-size: 16px;">
+  <li>Greenwaves GAP8 Core</li>
+  <li>ETH Zurich PULP RI5CY Core</li>
+  <li>OpenHW Group CORE-V Chassis Core</li>
+  <li>UVM Golden RISC-V Core</li>
+</ul>
+<h3>Security:</h3>
+<ul style="font-size: 16px;">
+  <li>Western Digital SweRV EH1 Core</li>
+  <li>Esperanto ET-Maxion Core</li>
+  <li>Microsemi CoreRISCV_AXI4 Core</li>
+</ul>
+<h3>Precision:</h3>
+<ul style="font-size: 16px;">
+  <li>Codasip Bk3 Core</li>
+  <li>Bluespec Piccolo Core</li>
+  <li>Cortus APS3R Core</li>
+</ul>
+<h3>General Purpose:</h3>
+<ul style="font-size: 16px;">
+  <li>SiFive E31 Core</li>
+  <li>LowRISC Ibex Core</li>
+  <li>Alibaba Xuantie 910 Core</li>
+  <li>RiSC-V International Rocket Core</li>
+  <li>UltraSoC RISC-V Core</li>
+  <li>Syntacore SCRx Core</li>
+</ul>
+
+<p style="font-size: 16px; text-indent: 40px;">*Note that each core may contain multiple selling points and have multiple utilities.</p>
+  </p>
+
+  <p style="font-size: 16px; text-indent: 40px;">The growing popularity of RISCV cores is not only due to their versatility and open-source nature, but also their potential for enhanced hardware security. With the increasing number of cyberattacks and data breaches, hardware security has become a critical concern in the tech industry. Many of the RISCV cores mentioned above, such as Western Digital's SweRV EH1 Core and Esperanto's ET-Maxion Core, were specifically designed with security in mind, implementing features such as side-channel attack resistance and secure boot capabilities. In addition, the open-source nature of these cores allows for greater transparency and scrutiny, making it easier to identify and address potential security vulnerabilities. As RISCV continues to gain momentum, we can expect to see even more emphasis on hardware security in future designs, providing consumers with a safer and more reliable computing experience.
+  </p>
 
   <h4 id="Section2.3">2.3 Future</h4>
 
-    <p>Indent by 2 spaces at a time.</p>
+  <p style="font-size: 16px; text-indent: 40px;">At the rate production is going, there will be many RISCV cores fabricated and openly available to purchase from multiple vendors. This will be great for the chip market for multiple reasons. For starters, it gives the consumer more options, which is always better from a price competitive standpoint. It also gives consumers a safe and open source option, meaning the source code and active development is being handled by people who are passionate about hardware design as opposed to a massive corporation or conglomerate. Finally, they can purchase a chip with a greater specialization or utility inherent in the design. </p>
 
-  
+  <p style="font-size: 16px; text-indent: 40px;">The future job opportunities include RISCV hardware and software developers, in the context of creating, fabricating, and maintaining systems based in RISCV. As the RISCV architecture gains more popularity and adoption, we can expect to see a significant increase in the number of companies offering RISCV-based products and services. This will not only create new business opportunities but also drive innovation in the industry, as more engineers and developers will be working on this new platform. This will likely result in a more diverse range of RISC V-based products, from low-power IoT devices to high-performance data center servers, and everything in between.
+  </p>
+
+  <p style="font-size: 16px; text-indent: 40px;">One area where we can expect to see significant growth is in the development of RISC V-based embedded systems, especially in the fields of autonomous vehicles, robotics, and edge computing. As these industries continue to expand, the need for efficient and reliable processing solutions will only increase. RISCVs open-source and customizable nature makes it an attractive choice for developers in these fields, who require highly specialized hardware and software solutions.
+  </p>
+
+  <p style="font-size: 16px; text-indent: 40px;">Moreover, with the advent of RISCV, we can expect to see a shift in the traditional way of thinking about hardware and software development. As more developers gain access to the RISCV platform, we will see a more collaborative and community-driven approach to building and maintaining software and hardware. This will lead to a more inclusive and diverse community, where people from all backgrounds and skill levels can contribute to the development of RISC V-based technologies, creating a more vibrant and dynamic industry.
+  </p>
+
+  <a href="https://riscv.org/blog/2021/01/lets-make-risc-v-connected-systems-synonymous-with-security/">
+    <figure style="font-size: 16px; text-align: center; ">
+      <img src="images/RISCVARC.png" width="900" height="600" alt="Hardware Security Has a Hopeful Future with RISCV">
+      <figcaption>A Diagram of a RISCV Core</figcaption>
+    </figure>
+  </a>
+
 <h2 id="Section3" class="numbered">3. Examples of Linux on RISCV</h2>
-
-    <h4 id="Section3.1"> 3.1 Early Prototypes </h4>
-  
-      <p>Indent by 2 spaces at a time.</p>
   
     <h4 id="Section3.2">3.2 Working Implementations</h4>
   
-      <p>Indent by 2 spaces at a time.</p>
+    <p style="font-size: 16px; text-indent: 40px;">
+    <ul style="font-size: 16px;">
+      <li>SiFive HiFive Unleashed: The SiFive HiFive Unleashed board is a development platform that features a RISC-V processor and runs a Linux distribution. The board is designed for developers who want to experiment with RISC-V and Linux, and it includes a range of peripherals and interfaces to support development.</li>
+      <li>BeagleV Starlight: The BeagleV Starlight board is another development platform that features a RISC-V processor and runs a Linux distribution. The board is designed for developers who want to create and test applications on a RISC-V platform, and it includes a range of peripherals and interfaces to support development.</li>
+      <li>Fedora RISC-V: Fedora is a popular Linux distribution that has added support for RISC-V architecture. Fedora RISC-V is a community-driven project that aims to provide a complete and stable Linux distribution for RISC-V platforms. It includes support for a range of RISC-V processors, and provides access to a large number of packages and libraries for software development.</li>
+      <li>Debian RISC-V: Debian is another popular Linux distribution that has added support for RISC-V architecture. Debian RISC-V is a community-driven project that provides a stable and flexible Linux distribution for RISC-V platforms. It includes support for a range of RISC-V processors, and provides access to a large number of packages and libraries for software development.</li>
+    </ul>
+    </p>
   
     <h4 id="Section3.3">3.3 The Future</h4>
   
-      <p>Indent by 2 spaces at a time.</p>
+    <p style="font-size: 16px; text-indent: 40px;">There are many RISC-V + Linux projects currently underway, and the landscape is evolving rapidly. Some notable examples include:
+    </p>
 
-<h2 id="Summary" class="numbered"> 4. Summary </h2>
+    <ul style="font-size: 16px;">
+      <li>The Linux kernel itself: The Linux kernel has added support for RISC-V architecture, and is constantly being updated to improve performance and compatibility with RISC-V processors.</li>
+      <li>The RISC-V International Association: This organization promotes the adoption and development of RISC-V architecture, and provides resources and support for developers working with RISC-V.</li>
+      <li>The OpenHW Group: This is a non-profit organization that aims to develop open source hardware designs, including RISC-V cores and related technology.</li>
+      <li>The CHIPS Alliance: This is a consortium of companies and organizations that collaborate on the development of open source hardware and software, including RISC-V and Linux.</li>
+    </ul>
+    <p style="font-size: 16px; text-indent: 40px;">Looking ahead, it is likely that we will continue to see growth in the use of RISC-V processors and Linux. RISC-V is becoming increasingly popular as a platform for both embedded and general-purpose computing, and its open source nature makes it an attractive choice for developers and companies. As more and more developers become familiar with RISC-V and Linux, we can expect to see even more innovative projects and applications emerge in the future. Additionally, the ongoing development of RISC-V and Linux is likely to lead to even greater performance, flexibility, and security in the years to come.</p>
 
-  <p>Indent by 2 spaces at a time.</p>
+    <a href="https://www.electropages.com/blog/2022/06/openhw-group-announces-risc-v-core-v-mcu-kit">
+      <figure style="font-size: 16px; text-align: center; ">
+        <img src="images/HARDWAREBOARD.png"  width="900" height="600">
+        <figcaption>A RISCV Development Board</figcaption>
+      </figure>
+    </a>
 
-<h2 id="References">5. References </h2>
+<h2 id="Section4" class="numbered">4. Security</h2>
 
-  <p>Indent by 2 spaces at a time.</p>
+<h4 id="Section4.1"> 4.1 Examples in Hardware</h4>
 
-<h2 id="Acronyms">6. Acronyms </h2>
+<p style="font-size: 16px; text-indent: 40px;">	Hardware vulnerabilities can be more devastating than software vulnerabilities for multiple reasons. Not only is the problem at the lowest possible level, but patches or fixes must be done in software and come with serious slowdowns and drawbacks.</p>
 
-  <p>Indent by 2 spaces at a time.</p>
+<p style="font-size: 16px; text-indent: 40px;"> With everyday appliances from your computer to the refrigerator having internet connections, data breaches are a valid concern as the network of connecting devices continues to grow and the need for security along with it. Software security cannot be left alone to handle possible vulnerabilities, and RISC-V based architecture is focused on having connected systems synonymous with security. Additions to physical security would take much of the load off devices’ processors and increase the intended performance of those appliances while also providing a separate layer of protection. Some of these physical additions include:
+</p>
+
+<ul style="font-size: 16px;">
+  <li>4-Ring Trust: A hierarchy of privileges and access to resources that limits devices on the outer rings to those of more importance on the inside through separate secure physical key storages. This is very important to a household or business of interconnected devices, some with greater security priority than others.</li>
+  <li>Device Unique Identity: Further keys for identification that are determined by the physical components of device that are unclonable and unforgeable.</li>
+  <li>Secure Boot: Hardware components that only allow correct unaltered software to run, limits tampering of devices.</li>
+  <li>Secure Storage: Key created are hardware bound, they cannot leave the separate security module and is a key feature to above implementations.</li>
+  <li>Side-Channel Attack Prevention: Limits the ability to access hardware data through exploit of systems energy consumption.</li>
+</ul>
+
+<p style="font-size: 16px; text-indent: 40px;"> Overall, RISC-V brings many advantages to hardware security usage and its open box of opportunities gives users greater control over their security needs.
+</p>
+
+<h4 id="Section4.2">4.2 Examples in Software</h4>
+
+<p style="font-size: 16px; text-indent: 40px;">While software vulnerabilities can be patched, they are more numerous and introduce different kinds of security issues. Hardware that is sold cannot be modified once it reaches the consumer, but software is constantly being updated and patched, allowing for more room for more errors. Here are some examples of common vulnerabilities: 
+</p>
+
+<ul style="font-size: 16px;">
+  <li>Buffer Overflow: A buffer overflow occurs when a program tries to store more data in a buffer than it can hold. This can lead to memory corruption and can potentially allow an attacker to execute arbitrary code.</li>
+  <li>Cross-Site Scripting (XSS): Cross-Site Scripting (XSS) attacks occur when an attacker injects malicious code into a website, potentially allowing them to steal user credentials or perform other malicious actions.</li>
+  <li>SQL Injection: SQL Injection attacks occur when an attacker is able to inject malicious SQL code into a web application, allowing them to access or modify sensitive data.</li>
+  <li>Remote Code Execution: Remote Code Execution vulnerabilities allow an attacker to execute arbitrary code on a system, potentially allowing them to take control of the system or steal sensitive data.</li>
+  <li>Denial of Service (DoS): A Denial of Service attack occurs when an attacker floods a system with traffic or requests, causing it to become unavailable to legitimate users.</li>
+  <li>Man-in-the-Middle (MITM) Attacks: A Man-in-the-Middle attack occurs when an attacker intercepts communication between two parties, potentially allowing them to steal sensitive information or modify the communication.</li>
+  <li>Zero-Day Vulnerabilities: Zero-Day vulnerabilities are vulnerabilities that are unknown to the public or software vendor, and are therefore unpatched. They can be exploited by attackers before a patch or fix is released, and can be very difficult to detect and defend against.</li>
+</ul>
+
+<a href="https://www.techarp.com/guides/complete-meltdown-spectre-cpu-list/">
+  <figure style="font-size: 16px; text-align: center; ">
+    <img src="images/SPECTREMELT.webp"  width="900" height="600">
+    <figcaption>Hardware and Software Vulnerabilities Will Always be a Part of the Development Lifecycle </figcaption>
+  </figure>
+</a>
+
+<h2 id="Summary"> 5. Summary </h2>
+
+<p style="font-size: 16px; text-indent: 40px;">Overall, the combination of RISC-V and Linux has the potential to significantly enhance security and give users greater control over their hardware and software. The open-source nature of both RISC-V and Linux allows for greater transparency and the ability to customize and audit the code, which can help to identify and address security vulnerabilities. Additionally, the use of RISC-V processors with an MMU in conjunction with Linux can provide advanced memory protection and other security features. Ultimately, this combination empowers users to take control of their computing experience, which can help to improve security and privacy for everyone.
+
+</p>
+
+<h2 id="References">6. References </h2>
+
+<ul style="font-size: 16px;">
+  <li><a href="https://www.theverge.com/2020/4/22/21230816/microsoft-developers-bugs-machine-learning-numbers-statistics">Microsoft Developers Find Bugs in Machine Learning with Statistics</a></li>
+  <li><a href="https://riscv.org/">RISC-V</a></li>
+  <li><a href="https://www.zdnet.com/article/nasty-linux-kernel-bug-found-and-fixed/">Nasty Linux Kernel Bug Found and Fixed</a></li>
+  <li><a href="https://www.theregister.com/2022/10/28/ubuntu_riscv_sbc/">Ubuntu Runs on a RISC-V Single Board Computer</a></li>
+  <li><a href="https://hackaday.com/2023/03/19/rp2040-runs-linux-through-risc-v-emulation/">RP2040 Runs Linux Through RISC-V Emulation</a></li>
+  <li><a href="https://liliputing.com/now-you-can-run-ubuntu-on-a-risc-v-computer-that-costs-less-than-20/">Now You Can Run Ubuntu on a RISC-V Computer That Costs Less Than $20</a></li>
+  <li><a href="https://www.hackster.io/news/charles-lohr-s-linux-capable-really-tiny-risc-v-emulator-exists-in-a-single-400-line-c-header-file-7d7801cf042c">Linux-Capable RISC-V Emulator Exists in a Single 400-Line C Header File</a></li>
+  <li><a href="https://hackaday.com/2022/12/07/a-tiny-risc-v-emulator-runs-linux-with-no-mmu-and-yes-it-runs-doom/">A Tiny RISC-V Emulator Runs Linux With No MMU and, Yes, It Runs Doom</a></li>
+  <li><a href="https://semiengineering.com/heterogeneous-ultra-low-power-risc-v-soc-running-linux/">Heterogeneous, Ultra-Low-Power RISC-V SoC Running Linux</a></li>
+  <li><a href="https://www.hpcwire.com/off-the-wire/spec-announces-new-tools-and-reduced-academic-pricing-for-spec-cpu-2017-benchmark-suite/">SPEC Announces New Tools and Reduced Academic Pricing for SPEC CPU 2017 Benchmark Suite</a></li>
+  <li><a href="https://9to5linux.com/ubuntu-22-10-now-runs-on-sipeeds-licheerv-d1-risc-v-linux-single-board-computer">Ubuntu 22.10 now runs on Sipeed’s LicheeRV D1 RISC-V Linux Single Board Computer</a></li>
+  <li><a href="https://www.datacenterknowledge.com/industry-perspectives/three-reasons-why-hardware-matters-software-defined-storage">Three Reasons Why Hardware Matters in Software-Defined Storage</a></li>
+  <li><a href="https://www.pufsecurity.com/document/the-good-the-bad-and-the-ugly-of-hardware-security/">The Good, The Bad, and The Ugly of Hardware Security</a>
+  <li><a href="https://riscv.org/blog/2021/01/lets-make-risc-v-connected-systems-synonymous-with-security/">Let’s Make RISC-V Connected Systems Synonymous with Security</a></li>
+  <li><a href="https://github.com/Boyifyoudontstop/CSCE_313_Technical_Article">RISC-V and Security</a></li>
+  </ul>
+
+<h2 id="Acronyms">7. Acronyms </h2>
+
+<ul style="font-size: 16px;">
+  <li>Par Lab - The University of Berkley at California’s Parallel Computing Laboratory.</li>
+  <li>BSD - Berkeley Software Distribution License; Allowed for RISCV to be open source.</li>
+  <li>IoT - Internet of Things; used to describe the connectivity between all devices.</li>
+  <li>ISA - Instruction Set Architecture.</li>
+  <li>RISCV - Reduced Instruction Set Architecture developed on an open source platform.</li>
+  <li>MMU - Memory Management Unit.</li>
+  <li>OS - Operating System.</li>
+</ul>
 
 <!-- <h3 id="General_Style_Rules" class="numbered">General Style Rules</h3>
 
